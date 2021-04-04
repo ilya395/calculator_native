@@ -103,7 +103,7 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),                                // со всех путях  удаляю эту папку
     mode: 'development',
     entry: {                                                                // точка входа в приложение, откуда начать
-        main: ['@babel/polyfill', './js/index.js'],
+        main: ['@babel/polyfill', './js/index.ts'],
     },
     output: {                                                               // куда складывать результаты работы
         filename: 'js/' + filename('js'),                                   // итоговый файл, после сборкивсех js файлов
@@ -112,7 +112,7 @@ module.exports = {
     },
     resolve: {
         extensions: [                                                       // какие расширения нужно понимать по умолчанию
-            '.js', '.json', '.png'
+            '.js', '.json', '.png', '.ts'
         ],
        alias: {                                                             
            '@': path.resolve(__dirname, 'src')                              // путь до корня проекта
@@ -162,6 +162,11 @@ module.exports = {
     ],
     module: {
         rules: [
+            {
+                test: /\.[tj]sx?$/,
+                exclude: /node_modules/,
+                use: ['ts-loader'],
+              },
             {
                 test: /\.css$/,
                 use: cssLoaders() 
